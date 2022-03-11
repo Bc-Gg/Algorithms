@@ -64,3 +64,19 @@ public:
 
 测试样例中的链表条数稍微有点多，至少需要8层递归。可不可以用一个队列来存储已经合并过的链表。每一次只取队头两个，合并后压入队尾，直到队中只有一条链表结束。返回一条链表。
 
+
+### 2.Median of Two Sorted Arrays
+#### ideas :
+1. merge this two array and find the median
+2. Devide and Conquer
+
+### code
+```cpp
+
+```
+### Result 
+
+### Improvement
+
+
+
