@@ -58,7 +58,7 @@ public:
 
 #### Result
 
-![image-20220307125207660](/Users/liubenchen/Library/Application Support/typora-user-images/image-20220307125207660.png)
+![image-20220307125207660](/Users/liubenchen/Desktop/Algorithms/log/photo/image-20220307125207660.png)
 
 #### Improvement
 
