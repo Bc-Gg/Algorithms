@@ -1,9 +1,8 @@
 # Algorithms
 Used for studying algorithms
-#### tips
-this repo is used for sharing method of learing algorithm
-never copy the code without thinking!
-### motto
-#### slow is fast, less is more, focus is everything.
+#### Tips
+this repo is used for sharing the method of learning algorithms. 
+And never copy the code without thinking!
+
 # LICENSE
 #### MIT license
