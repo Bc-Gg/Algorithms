@@ -2,6 +2,7 @@
 author : bcgg
 可惜时间爆了
 其实写的很好
+中间很多可以改进
 '''
 ans = 0
 def merge(arr, l, m, r):
