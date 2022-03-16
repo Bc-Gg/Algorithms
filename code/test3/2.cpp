@@ -1,6 +1,6 @@
 # include<iostream>
 using namespace std;
 int main(){
-    long long 
+    long long ans;
     return 0;
 }
