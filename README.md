@@ -11,6 +11,9 @@ And never copy the code without thinking!
 ## 2022/03/16
 1. upload test3  
 2. add solution of 1(mergesort) using py
+## 2022/03/18
+1. done test3
+
 
 # LICENSE
 #### MIT license

@@ -23,8 +23,8 @@ double cal_square(double alpha);
 double find_min_square(double le, double ri){
     while(fabs(le - ri) > 1e-14){
         //这是三分的一种写法，其实也可以对 mmid = (mid + ri) / 2
-        auto midl = le + (ri - le) / 3;
-        auto midr = ri - (ri - le) / 3;
+        auto midr = (le + ri) /2 ; 
+        auto midl = (midr + le) / 2;
         if(cal_square(midl) <= cal_square(midr)) ri = midr;
         else le = midl;
     }
