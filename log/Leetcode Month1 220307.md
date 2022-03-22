@@ -1,4 +1,4 @@
-# Leetcode Month1 22/03/07
+# Leetcode Month1 
 
 ## Devide and Conquer
 
@@ -73,10 +73,45 @@ public:
 ### code
 ```cpp
     // 这个比想象中难一些，
+const int inf = 0xfffffff;
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        if (nums1.size() > nums2.size()) {
+            return findMedianSortedArrays(nums2, nums1);
+        }
+        
+        int m = nums1.size(),n = nums2.size();
+        int le = 0, ri = m;
+        int median1 = 0, median2 = 0;
+
+        while (le <= ri) {
+            int i = (le + ri) / 2;
+            int j = (m + n + 1) / 2 - i;
+
+            int nums_im1 = (i == 0 ? -inf : nums1[i - 1]);
+            int nums_i = (i == m ? inf : nums1[i]);
+            int nums_jm1 = (j == 0 ? -inf : nums2[j - 1]);
+            int nums_j = (j == n ? inf : nums2[j]);
+
+            if (nums_im1 <= nums_j) {
+                median1 = max(nums_im1, nums_jm1);
+                median2 = min(nums_i, nums_j);
+                le = i + 1;
+            } else {
+                ri = i - 1;
+            }
+        }
+
+        return (m + n) % 2 == 0 ? (median1 + median2) / 2.0 : median1;
+    }
+};
 ```
 ### Result 
 
+![image-20220319151612586](/Users/liubenchen/Desktop/Algorithms/log/photo/image-20220319151612586.png)
+
 ### Improvement
 
-
+暂时还没想出来
 
