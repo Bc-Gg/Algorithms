@@ -6,21 +6,15 @@ const int N = 2 * 1e6 +10;
 const int m = 1e9+7;
 
 int main(){
-    ll n,k;
+    int n,k;
     cin >> n >> k;
-    auto plate = new ll[k]; // 第n个盘子的状态
-    for(int i = 0 ; i < k ; i++) plate[i] = 1; //一个盘子的状态
+    auto plate = new int[n+1]; // 第n个盘子的状态
+    auto last = new int[n+1];
+    plate[1] = k;
     for(int i = 2 ; i <= n ; i++){
-        for(int j = 0 ; j < k ;j++){
-            plate[j] *= k;
-            if(i > 2)
-                plate[j] --;
-            // cout << plate[j] << ' ';
-        }
-        // cout <<endl;
+        plate[i] = (plate[i-1] + last[i-1]) * (k-1);
+        last[i] = plate[i-1];
     }
-    ll sum = 0;
-    for(int i = 0 ; i < k ;i++) sum += plate[i];
-    cout << sum<< endl;
+    cout << plate[n] + last[n] << endl;
     return 0;
 }
