@@ -1,8 +1,22 @@
 # include<iostream>
 # include<vector>
 using namespace std;
+typedef long long ll;
+const int N = 1e9+7;
+# include<iostream>
+using namespace std;
+int main(){
+    ll n,k;
+    cin >> n >> k;
+    auto plate = new ll[n+1];
+    plate[1] = k;
+    for(int i = 2 ; i <= n ; i++)
+        plate[i] = ((plate[i-1] + plate[i-2]) * (k-1)) % N;
+    cout << (plate[n] + plate[n-1]) % N << endl;
+    return 0;
+}
 
-
+/*
 int main(){
     int n,k;
     cin >> n >> k;
@@ -17,7 +31,7 @@ int main(){
     return 0;
 }
 
-/*
+
 等价变换后的简便写法：
 
 # include<iostream>
