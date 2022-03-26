@@ -58,7 +58,7 @@ public:
 
 #### Result
 
-![image-20220307125207660](/Users/liubenchen/Desktop/Algorithms/log/photo/image-20220307125207660.png)
+![image-20220307125207660](photo/image-20220307125207660.png)
 
 #### Improvement
 
@@ -109,7 +109,7 @@ public:
 ```
 ### Result 
 
-![image-20220319151612586](/Users/liubenchen/Desktop/Algorithms/log/photo/image-20220319151612586.png)
+![image-20220319151612586](photo/image-20220319151612586.png)
 
 ### Improvement
 

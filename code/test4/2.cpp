@@ -10,8 +10,10 @@ int main(){
     cin >> n >> k;
     auto plate = new ll[n+1];
     plate[1] = k;
-    for(int i = 2 ; i <= n ; i++)
+    for(int i = 2 ; i <= n ; i++){
         plate[i] = ((plate[i-1] + plate[i-2]) * (k-1)) % N;
+        cout << plate[i] << ' ' << plate[i-1] <<endl;
+    }
     cout << (plate[n] + plate[n-1]) % N << endl;
     return 0;
 }

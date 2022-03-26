@@ -1,10 +1,3 @@
-# Month2
-## Dynamic Programming
-## 背包问题
-已经全部解决在dp文件夹中
-## leetcode 115 
-### dp写法
-```cpp
 
 class Solution {
     
@@ -29,6 +22,3 @@ public:
         return dp[0][0];
     }
 };
-```
-![](photo/2022-03-26-23-14-19.png)
-ps:过了，但是时间很难看，况且题目上说的是可以用int过掉，没想到最后还要用unsigned long，debug半天挺无语的。看看能不能学习一下别人的题解改进一下。
