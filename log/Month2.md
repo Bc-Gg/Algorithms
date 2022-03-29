@@ -1,7 +1,7 @@
 # Month2
 ## Dynamic Programming
 ## 背包问题
-已经全部解决在dp文件夹中
+三种基本的背包问题，已经全部解决在dp文件夹中
 ## leetcode 115 
 ### dp写法
 ```cpp
@@ -86,3 +86,61 @@ public:
 ```
 ![](photo/2022-03-27-16-27-17.png)
 **后记** 后面把第一个ac程序加了一个len之后也可以达到0ms。看来是vector.size()太慢了。查了一下cppreference，应该是O（1）的复杂度，不知道为啥能这么慢。无语。以后学会了，每次调用先把这个长度信息存起来。
+## 股票收益最大化问题
+**一个Quant一定要做一下股票题**
+### 股票1
+```cpp
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int len = prices.size();
+        int minn = prices[0];
+        int res = 0;
+        for(int i = 1  ; i < len ;i++){
+            minn = min(minn, prices[i]);
+            res = max(res, prices[i] - minn);
+        }
+        return res;
+    }
+};
+```
+![](photo/2022-03-29-15-36-47.png)
+### 股票2
+```cpp
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int len = prices.size();
+        int buy = -prices[0], sell = 0;
+        for(int i = 0 ; i < len ;i++){
+            buy = max(buy, sell - prices[i]);
+            sell = max(buy + prices[i],sell);
+        }
+        return sell;
+    }
+};
+```
+![](photo/2022-03-29-15-29-31.png)
+
+### 股票3
+第二题做完之后看了看题解，第三题挺轻松的。主要是区分好第几次进行交易。在第二题（无限次交易）中，只要把第一次和第二次分开就可以变成第三题了。
+```cpp
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        // assume that original asset = 0
+        int buy1,buy2,sell1,sell2;
+        buy1 = -prices[0],sell1 = 0;
+        buy2 = -prices[0],sell2 = 0;
+        int len = prices.size();
+        for(int i = 0 ; i < len; i++){
+            buy1 = max(buy1 , -prices[i]);
+            sell1 = max(sell1, buy1 + prices[i]);
+            buy2 = max(sell1-prices[i],buy2);
+            sell2 = max(sell2,buy2 + prices[i]);
+        }
+        return sell2;
+    }
+};
+```
+![](photo/2022-03-29-15-25-03.png)
