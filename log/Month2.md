@@ -144,3 +144,33 @@ public:
 };
 ```
 ![](photo/2022-03-29-15-25-03.png)
+### leetcode 42
+``` cpp
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int len = height.size();
+        auto ml = new int[len];
+        auto mr = new int[len];
+        int tm = -1;
+        for(int i = 0 ; i < len ; i++) ml[i] = mr[i] = 0;
+        for(int i = 1 ; i < len; i++){
+            tm = max(tm, height[i-1]);
+            ml[i] = tm;
+        }
+        tm = -1;
+        for(int i = len-2 ;i >= 0 ; i--){
+            tm = max(tm, height[i+1]);
+            mr[i] = tm;
+        }
+        int ans = 0;
+        for(int i = 1 ; i < len-1 ; i++){
+            int res = max(0, min(mr[i], ml[i]) - height[i]);
+            ans += res;
+        }
+        return ans;
+    }
+};
+```
+![](photo/2022-04-19-11-08-56.png)
+**交了两发就过了。第一发ans没给初始化，真的无语。看了看更牛逼的ac代码发现，只需要两个变量保存左边最高和右边最高就可以了，一个while解决问题。如果左边最高高于右边最高，那么最后的雨水容量就是右边最高减去挡墙高度，反之最后的雨水容量就是当前高度减去左边高度。（木桶效应：只需要看最短的边）**

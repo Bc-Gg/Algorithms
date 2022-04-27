@@ -1,4 +1,6 @@
-#include<bits/stdc++.h>
+# include<iostream>
+# include<vector>
+# include<algorithm>
 using namespace std;
 
 const int N=10005;
@@ -31,6 +33,8 @@ int main()
             int time=h;
             while (time>0){
                 sort(a+1,a+1+i,cmp);
+                // for(int j = 1 ; j <= i ;j++) printf("{%d %d}",a[j].index, a[j].Fish);
+                // printf("\n");
                 if(a[1].Fish<=0) break;
                 sum+=a[1].Fish;
                 Time[a[1].index]++;
@@ -38,7 +42,7 @@ int main()
                 a[1].Fish-=a[1].Dec;
             }
             for(int i=1;i<=n;i++) a[i]=b[i];
-            if(i==1 || sum>ans){
+            if(sum>ans){
                 ans=sum;
                 for(int j=1;j<=n;j++) maxtime[j]=Time[j];
                 maxtime[1]=h;
@@ -52,5 +56,3 @@ int main()
     }
     return 0;
 }
-
-// here to show my highest respect to Big smart
