@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-const int N = 21, M = 35;
+const int N = 21;
 int vis[N];
 int g[N];
 int list[] = {2,3,5,7,11,13,17,19,23,29,31};
