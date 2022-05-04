@@ -174,3 +174,56 @@ public:
 ```
 ![](photo/2022-04-19-11-08-56.png)
 **交了两发就过了。第一发ans没给初始化，真的无语。看了看更牛逼的ac代码发现，只需要两个变量保存左边最高和右边最高就可以了，一个while解决问题。如果左边最高高于右边最高，那么最后的雨水容量就是右边最高减去挡墙高度，反之最后的雨水容量就是当前高度减去左边高度。（木桶效应：只需要看最短的边）**
+### leetcode 410
+```cpp
+class Solution {
+public:
+    int splitArray(vector<int>& nums, int m) {
+        int le = 0, ri = 0;
+        for(auto num : nums){
+            le = max(num,le);
+            ri += num;
+        }
+        //二分最大值的最小值
+        while(le < ri){
+            int split = 1;
+            int mid = (le + ri) >> 1;
+            int sum = 0;
+            for(auto num : nums){
+                if(sum + num > mid) {split++;sum = 0;}
+                sum += num;
+            }
+            if(split > m) le = mid + 1;
+            else ri = mid;
+        }
+        return le;
+    }
+};
+```
+![](photo/2022-05-04-14-00-18.png)
+以后最小值的最大和最大值的最小都是这套二分模版，leetcode875也是基本相同的问题。
+### leetcode 22 (Templete)
+```cpp
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        dfs(ans,0,0,n,"");
+        return ans;
+    }
+    void dfs(vector<string> &ans, int le, int ri,int n,string s){
+        // 2^n model 
+        // le->"("  ri ->")"
+        if(le > n || ri > le || ri > n) return;
+        if(le == n && ri == n) {
+            ans.push_back(s);
+        }
+        else{
+            dfs(ans, le+1 ,ri , n ,s+"(");
+            dfs(ans, le, ri+1 , n ,s+")");
+        }
+    }
+};
+```
+![](photo/2022-05-04-14-12-58.png)
+中规中矩模版题，子集数模型，带剪枝。当ri!=le时括号的匹配树不平衡，直接剪枝。
