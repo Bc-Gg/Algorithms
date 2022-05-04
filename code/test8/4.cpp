@@ -1,19 +1,15 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-const int N = 21;
-int vis[N];
-int g[N];
-int list[] = {2,3,5,7,11,13,17,19,23,29,31};
-int is_prime(int a){
-    for(int i = 0 ; i < 11 ; i++)
-        if (a == list[i]) return 1;
-    return 0;
-}
+const int N = 21, M = 35;
+bool st[M];
+int g[N], is_prime[M] = {0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0};
+int prime[N] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
+int n;
 
-void dfs(int pos, int n){
+void dfs(int pos){
     if(pos == n + 1){
-        if(is_prime(1 + g[n])){
+        if(is_prime[g[n] + 1]){
             for(int i = 1; i <= n; i++){
                 printf("%d", g[i]);
                 if(i == n) puts("");
@@ -22,12 +18,14 @@ void dfs(int pos, int n){
             return;
         }
     }
-    for(int i = 2; i <= n; i++){
-        if(!vis[i] && is_prime(g[pos-1] + i)){
-            vis[i] = 1;
-            g[pos] = i;
-            dfs(pos+1, n);
-            vis[i] = 0;
+    for(int i = 0; i <= 10; i++){
+        int j = prime[i] - g[pos-1];
+        if(j > n) break;
+        if(j > 1 && !st[j]){
+            st[j] = true;
+            g[pos] = j;
+            dfs(pos+1);
+            st[j] = false;
         }
     }
 }
@@ -35,13 +33,13 @@ void dfs(int pos, int n){
 int main()
 {
     g[1] = 1;
-    int n, cnt = 0;
+    int cnt = 0;
     while(scanf("%d", &n) != EOF && n){
         cnt++;
         printf("Case %d:\n", cnt);
-        memset(vis, 0, sizeof vis);
-        if(n > 1) dfs(2, n);
-      	else printf("1\n");
+        memset(st, false, sizeof st);
+        if(n == 1) printf("1\n");
+        else if(!(n & 1)) dfs(2);
         puts("");
     }
     return 0;
