@@ -51,3 +51,48 @@ public:
 ```
 **和时间复杂度低的代码差不多，人家是0ms，我就是4ms，很怪。前导0的剪枝一开始没想到，瞟了一眼答案，最后还是做出来了**
 ![](photo/2022-05-09-23-17-34.png)
+
+
+### leetcode 526 medium
+```cpp
+# include<vector>
+# include<cstring>
+using namespace std;
+class Solution {
+public:
+    int cnt;
+    vector<vector<int >> perm;
+    vector<int> v;
+    void find_perm(int n){
+        perm.resize(n+1);
+        for(int i = 1 ; i <= n ; i++){
+            for(int j = 1 ; j <= n ; j++){
+                if(!(i%j) || !(j%i)) perm[i].push_back(j);
+            }
+        }
+    }
+
+    void back(int lev, int n){
+        if(lev > n) {
+            cnt ++;
+            return;
+        }
+        for(auto p :perm[lev]){
+            if(!v[p]){
+                v[p] = 1;
+                back(lev+1, n);
+                v[p] = 0;
+            }
+        }
+    }
+
+    int countArrangement(int n) {
+        find_perm(n);
+        v.resize(n+1);
+        back(1,n);
+        return cnt;
+    }
+};
+```
+**排列树的基本框架，但是带了一个优美排列的套路。所以相当于是每一个位置的排列都是有限制的，就是要在整个的排列上加一个限制，全排列的迭代改成因数的vector的迭代就好了**
+![](photo/2022-05-11-16-56-06.png)
