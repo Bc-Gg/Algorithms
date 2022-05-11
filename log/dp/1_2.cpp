@@ -25,11 +25,11 @@ int f[N];
 int main(){
     int v[N], w[N];
     int m,n;
-    cin >> n >> m;
-    for(int i = 1 ; i <= n;i++ ) cin >> v[i] >> w[i];
+    cin >> m >> n;
+    for(int i = 1 ; i <= n;i++ ) cin >> v[i];
     for(int i = 1 ; i <= n ;i++)
         for(int j = m ; j >= v[i] ;j--)// 倒序让降维变得可行
-            f[j] = max(f[j],f[j- v[i]] + w[i]);
+            f[j] = max(f[j],f[j- v[i]] + v[i]);
     cout << f[m];
     return 0;
 }
