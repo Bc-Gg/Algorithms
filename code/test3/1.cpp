@@ -57,7 +57,7 @@ void MergeSort(int a[], int low, int high){
 int main(){
     int attack[500050] = {0};
     load(attack);
-    MergeSort(attack ,0,len - 1);
+    MergeSort(attack ,0 ,len - 1);
     cout << ans;
     return 0;
 }

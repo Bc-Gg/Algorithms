@@ -2,6 +2,7 @@
 using namespace std;
 long long len[100];
 long long sumb(long long pos){
+    printf("calcing :%lld\n", pos);
     if(!pos) return 0;
     for(int i = 1 ; i < 100 ;i++){
         if(pos == len[i])

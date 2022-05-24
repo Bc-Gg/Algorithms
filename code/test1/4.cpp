@@ -1,9 +1,3 @@
-//
-//  main.cpp
-//  test1
-//
-//  Created by 刘本宸 on 2022/3/2.
-//
 # include<math.h>
 #include <iostream>
 using namespace std;

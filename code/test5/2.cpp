@@ -17,10 +17,9 @@ int main(){
     for(int i = 2 ; i < n - 1; i++){// 选第一个
         f1[i] = max(f1[i-1], f1[i-2] + a[i]);
     }
-    f1[n-1] = f1[n-2];
     for(int i = 2; i < n;i++){
         f2[i] = max(f2[i-1],f2[i-2]+a[i]);
     }
-    cout << max(f1[n-1],f2[n-1]);
+    cout << max(f1[n-2],f2[n-1]);
     return 0;
 }

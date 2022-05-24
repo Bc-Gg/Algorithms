@@ -33,8 +33,6 @@ int main()
             int time=h;
             while (time>0){
                 sort(a+1,a+1+i,cmp);
-                // for(int j = 1 ; j <= i ;j++) printf("{%d %d}",a[j].index, a[j].Fish);
-                // printf("\n");
                 if(a[1].Fish<=0) break;
                 sum+=a[1].Fish;
                 Time[a[1].index]++;

@@ -26,7 +26,6 @@ int main(){
     for(int i = 1 ; i <= col ;i++)
         for(int j = 1 ; j <= row; j++){
             if(!vis[i][j] && g[i][j]){
-                if(g[i+1][j] == 0 && g[i][j+1] == 0 && g[i-1][j] == 0&&g[i][j-1]) continue;
                 dfs(i,j);
                 ans++;
             }
