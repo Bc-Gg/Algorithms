@@ -2,6 +2,7 @@
 Used for studying algorithms
 #### Tips
 this repo is used for sharing the method of learning algorithms. 
+we made up this repo to experience the beauty of Algorithm.
 And never copy the code without thinking!
 
 # logs
@@ -32,3 +33,4 @@ And never copy the code without thinking!
 # LICENSE
 #### MIT license
 #### author ：2020-bcgg 
+#### 2022/05/26
