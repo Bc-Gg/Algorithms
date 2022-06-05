@@ -1,116 +1,168 @@
-/*1.计算至少有一对生日相同的概率即概率算法计算 1-（365！/（340！* 365^25 ）） 
-  2.1~3对生日相同的概率  
-  3.输出300次实验结果的平均值和方差 
-*/
-
+//电路板排列问题 回溯法求解
+#include "stdafx.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
-#include <math.h>
-#include<ctime>
-#include<stdlib.h>
-#include <iomanip>  //有效数字
-double caculate(int);
-int model(int);
-int model_1(int);
+
+ifstream fin("5d11.txt");
+
+class Board
+{
+   friend int Arrangement(int **B, int n, int m, int bestx[]);
+
+private:
+   void Backtrack(int i, int cd);
+   int n,      //电路板数
+       m,      //连接板数
+       *x,     //当前解
+       *bestx, //当前最优解
+       bestd,  //当前最优密度
+       *total, //total[j]=连接块j的电路板数
+       *now,   //now[j]=当前解中所含连接块j的电路板数
+       **B;    //连接块数组
+};
+
+template <class Type>
+inline void Swap(Type &a, Type &b);
+
+int Arrangement(int **B, int n, int m, int bestx[]);
+
 int main()
 {
-    int n;
-    
-    cout<< "请输入总人数：" << endl;
-    cin>> n;
-    cout<< "所有人生日都不相同的概率：" <<endl;
-    cout<< "计算的精确值：" <<caculate(n) << endl;
-    model(n);
-    model_1(n);
-    return 0;
-}
+   int m = 5, n = 8;
+   int bestx[9];
 
-//计算精确值 
-double caculate(int num)
-{
-    int day=365;
-    double result = 1, i;//计算的重复概率
-    for (i = 1; i <num; i++)
-    {
-       result*= (day - i) / day;//两个人不在同一天就是（365/365）*（364/365）
-    }
-     return result;
-}
+   //B={1,2,3,4,5,6,7,8}
+   //N1={4,5,6},N2={2,3},N3={1,3},N4={3,6},N5={7,8}
 
-// 所有人生日都不相同的概率 ，至少一对人生日相同的概率 
-int model(int num)
-{
-    int day=365;
-    double sn;
-    double result;//仿真的重复概率
-    int cont = 0, i, j = 0;//模拟中不重复的次数
-    srand((unsigned)time(NULL)); /*播种子,这里用到了time需要包含头文件time.h*/
-    for (j = 0; j <300000; j++)
-    {
-       int* p = new int[day+1];
-       for (i = 0; i < day;i++)
-          p[i]= 0;//清零数组
-        for (i = 1; i <num; i++)
-       {
-          int n;
-          
-          n= rand() % day + 1;
-          if (!p[n])  //等价与if（p[n]==0） 
-               p[n]= 1;
-          else
-               break;//使用break完全结束一个循环，跳出循环体执行循环后面的语句 
-        }
-          if (i == num) cont++;
-         delete[]p;
- }
-   result= cont * 1.0 / 300000;//数字越大越精确；这个即为平均值
-   cout<< "模拟的所有人生日都不相同的概率：" <<fixed<<setprecision(8)<<result<<endl;
-   cout<<"至少一对人生日相同的概率为：" <<fixed<<setprecision(8)<<1-result<<" ";
-   sn=(cont*pow(result,2)+(num-cont)*pow(1-result,2))/300000;
-   cout<<"方差为："<<fixed<<setprecision(8)<<sn<<endl; 
-   
+   cout << "m=" << m << ",n=" << n << endl;
+   cout << "N1={4,5,6},N2={2,3},N3={1,3},N4={3,6},N5={7,8}" << endl;
+   cout << "二维数组B如下：" << endl;
+
+   //构造B
+   int **B = new int *[n + 1];
+   for (int i = 1; i <= n; i++)
+   {
+      B[i] = new int[m + 1];
+   }
+
+   for (int i = 1; i <= n; i++)
+   {
+      for (int j = 1; j <= m; j++)
+      {
+         fin >> B[i][j];
+         cout << B[i][j] << " ";
+      }
+      cout << endl;
+   }
+
+   cout << "当前最优密度为:" << Arrangement(B, n, m, bestx) << endl;
+   cout << "最优排列为：" << endl;
+   for (int i = 1; i <= n; i++)
+   {
+      cout << bestx[i] << " ";
+   }
+   cout << endl;
+
+   for (int i = 1; i <= n; i++)
+   {
+      delete[] B[i];
+   }
+   delete[] B;
+
    return 0;
 }
 
-//g对人生日相同的概率
-int model_1(int num)//g用来记录有几对生日相同 
+void Board::Backtrack(int i, int cd) //回溯法搜索排列树
 {
-    int day=365;
-    int g[3]={1,2,3};
-    double result[3],sn[3];//仿真的重复概率
-    int cont = 0, group[3]={0,0,0};
-	int i, j = 0;//模拟不重复的次数
-    srand((unsigned)time(NULL)); /*播种子,这里用到了time需要包含头文件time.h*/
-    for (j = 0; j <300000; j++)
-    {
-       int* p = new int[day+1];
-       for (i = 0; i < day;i++)
-          p[i]= 0;//清零数组
-        for (i = 1; i <=num; i++)
-       {
-          int n;
-          
-          n= rand() % day + 1;
-          if (!p[n])  //等价于if（p[n]==0） 
-               p[n]= 1;
-          else
-          {
-		  cont++;p[n]= 0;
-		  }
-               //break;//使用break完全结束一个循环，跳出循环体执行循环后面的语句 
-        }
-        for(int i=0;i<3;i++){
-        	if (cont == g[i]) group[i]++;
-		}
-          
-         delete[]p;
- }
-    for(int i=1;i<=3;i++){
-        result[i]= group[i] * 1.0 / 300000;//数字越大越精确
-        sn[i]=(group[i]*pow((1-result[i]),2)+(num-group[i])*pow(result[i],2))/300;
-        cout<<"恰好"<<i<<"对生日相同的概率和方差：";
-        cout<<fixed<<setprecision(8)<<result[i]<<" "<<sn[i]<<endl;
-		}
-  
-   return 0;
-} 
+   if (i == n)
+   {
+      for (int j = 1; j <= n; j++)
+      {
+         bestx[j] = x[j];
+      }
+      bestd = cd;
+   }
+   else
+   {
+      for (int j = i; j <= n; j++)
+      {
+         //选择x[j]为下一块电路板
+         int ld = 0;
+         for (int k = 1; k <= m; k++)
+         {
+            now[k] += B[x[j]][k];
+            if (now[k] > 0 && total[k] != now[k])
+            {
+               ld++;
+            }
+         }
+         
+         //更新ld
+         if (cd > ld)
+         {
+            ld = cd;
+         }
+
+         if (ld < bestd) //搜索子树
+         {
+            Swap(x[i], x[j]);
+            Backtrack(i + 1, ld);
+            Swap(x[i], x[j]);
+
+            //恢复状态
+            for (int k = 1; k <= m; k++)
+            {
+               now[k] -= B[x[j]][k];
+            }
+         }
+      }
+   }
+}
+
+int Arrangement(int **B, int n, int m, int bestx[])
+{
+   Board X;
+
+   //初始化X
+   X.x = new int[n + 1];
+   X.total = new int[m + 1];
+   X.now = new int[m + 1];
+   X.B = B;
+   X.n = n;
+   X.m = m;
+   X.bestx = bestx;
+   X.bestd = m + 1;
+
+   //初始化total和now
+   for (int i = 1; i <= m; i++)
+   {
+      X.total[i] = 0;
+      X.now[i] = 0;
+   }
+
+   //初始化x为单位排列并计算total
+   for (int i = 1; i <= n; i++)
+   {
+      X.x[i] = i;
+      for (int j = 1; j <= m; j++)
+      {
+         X.total[j] += B[i][j];
+      }
+   }
+
+   //回溯搜索
+   X.Backtrack(1, 0);
+   delete[] X.x;
+   delete[] X.total;
+   delete[] X.now;
+   return X.bestd;
+}
+
+template <class Type>
+inline void Swap(Type &a, Type &b)
+{
+   Type temp = a;
+   a = b;
+   b = temp;
+}
